@@ -35,14 +35,14 @@ restService.get('/get-recipes', function(req, res) {
 
     var reqObj = {"_app_id": apiId, "_app_key": apiId, "q": queryString};
 
-    var result = res.json(reqObj);
-    console.log(result);
-    return result;
-    // return res.json({
-    //     speech: speech,
-    //     displayText: speech,
-    //     source: 'webhook-echo-sample'
-    // });
+    // var result = res.json(reqObj);
+    // console.log(result);
+    // return result;
+    return res.json({
+        speech: speech,
+        displayText: speech,
+        source: 'webhook-echo-sample'
+    });
 });
 
 restService.post('/slack-test', function(req, res) {
