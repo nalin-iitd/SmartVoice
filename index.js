@@ -11,13 +11,37 @@ restService.use(bodyParser.urlencoded({
 
 restService.use(bodyParser.json());
 
-restService.post('/echo', function(req, res) {
+restService.get('/get-recipes', function(req, res) {
+
     var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.itemName ? req.body.result.parameters.itemName : "Seems like some problem. Speak again."
-    return res.json({
-        speech: speech,
-        displayText: speech,
-        source: 'webhook-echo-sample'
-    });
+    var apiId = '0cc5117b';
+    var apiKey = '7fd6ee57ca3497bc04bf70a71a714a97';
+    var baseURL = 'http://api.yummly.com/v1/api/recipes';
+
+    var queryString = ''; // default query string
+    var tempStr = itemName.split(" ");
+
+    for (var i = 0; i < tempStr.length; i++) { 
+    queryString = queryString + tempStr[i];
+
+    if(i < tempStr.length-1){
+        queryString = queryString + "+";
+    }
+    }
+
+     if(!queryString){
+        queryString = 'pasta';
+    }
+
+    var reqObj = {"_app_id": apiId, "_app_key": apiId, "q": queryString};
+
+    var result = res.json(reqObj);
+    return result;
+    // return res.json({
+    //     speech: speech,
+    //     displayText: speech,
+    //     source: 'webhook-echo-sample'
+    // });
 });
 
 restService.post('/slack-test', function(req, res) {
