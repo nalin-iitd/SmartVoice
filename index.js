@@ -2,7 +2,6 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const request = require('request');
 
 const restService = express();
 
@@ -22,17 +21,6 @@ restService.get('/get-recipes', function (req, res) {
     var result = '';
 
     var requestParams = { "_app_id": apiId, "_app_key": apiId, "q": queryString };
-
-    var options = {
-        url: baseURL,
-        qs: reqesutParams
-    };
-
-    request({ url: url, qs: requestParams }, function (err, response, body) {
-        if (err) { console.log(err); return; }
-        result = response;
-        console.log("Get response: " + response.statusCode);
-    });
 
     return result;
 
