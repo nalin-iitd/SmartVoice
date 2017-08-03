@@ -2,6 +2,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const request = require('request');
 
 const restService = express();
 
@@ -11,41 +12,38 @@ restService.use(bodyParser.urlencoded({
 
 restService.use(bodyParser.json());
 
-restService.get('/get-recipes', function(req, res) {
+restService.get('/get-recipes', function (req, res) {
 
+    // get request to recipe api
     var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.itemName ? req.body.result.parameters.itemName : "Seems like some problem. Speak again."
     var apiId = '0cc5117b';
     var apiKey = '7fd6ee57ca3497bc04bf70a71a714a97';
     var baseURL = 'http://api.yummly.com/v1/api/recipes';
+    var result = '';
 
-    var queryString = ''; // default query string
-    var tempStr = itemName.split(" ");
+    var requestParams = { "_app_id": apiId, "_app_key": apiId, "q": queryString };
 
-    for (var i = 0; i < tempStr.length; i++) { 
-    queryString = queryString + tempStr[i];
+    var options = {
+        url: baseURL,
+        qs: reqesutParams
+    };
 
-    if(i < tempStr.length-1){
-        queryString = queryString + "+";
-    }
-    }
-
-     if(!queryString){
-        queryString = 'pasta';
-    }
-
-    var reqObj = {"_app_id": apiId, "_app_key": apiId, "q": queryString};
-
-    // var result = res.json(reqObj);
-    // console.log(result);
-    // return result;
-    return res.json({
-        speech: speech,
-        displayText: speech,
-        source: 'webhook-echo-sample'
+    request({ url: url, qs: requestParams }, function (err, response, body) {
+        if (err) { console.log(err); return; }
+        result = response;
+        console.log("Get response: " + response.statusCode);
     });
+
+    return result;
+
+    // return res.json({
+    //     speech: speech,
+    //     displayText: speech,
+    //     source: 'webhook-echo-sample'
+    // });
 });
 
-restService.post('/slack-test', function(req, res) {
+restService.post('/slack-test', function (req, res) {
 
     var slack_message = {
         "text": "Details of JIRA board for Browse and Commerce",
@@ -102,6 +100,6 @@ restService.post('/slack-test', function(req, res) {
 
 
 
-restService.listen((process.env.PORT || 8000), function() {
+restService.listen((process.env.PORT || 8000), function () {
     console.log("Server up and listening");
 });
