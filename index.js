@@ -11,23 +11,23 @@ restService.use(bodyParser.urlencoded({
 
 restService.use(bodyParser.json());
 
-restService.get('/get-recipes', function (req, res) {
+// restService.get('/get-recipes', function (req, res) {
 
-    // get request to recipe api
-    var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.itemName ? req.body.result.parameters.itemName : "Seems like some problem. Speak again."
-    var apiId = '0cc5117b';
-    var apiKey = '7fd6ee57ca3497bc04bf70a71a714a97';
-    var baseURL = 'http://api.yummly.com/v1/api/recipes';
-    var result = '';
+//     // get request to recipe api
+//     var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.itemName ? req.body.result.parameters.itemName : "Seems like some problem. Speak again."
+//     var apiId = '0cc5117b';
+//     var apiKey = '7fd6ee57ca3497bc04bf70a71a714a97';
+//     var baseURL = 'http://api.yummly.com/v1/api/recipes';
+//     var result = '';
 
-    var requestParams = { "_app_id": apiId, "_app_key": apiId, "q": queryString };
+//     var requestParams = { "_app_id": apiId, "_app_key": apiId, "q": queryString };
 
-    return res.json({
-        speech: speech,
-        displayText: speech,
-        source: 'webhook-echo-sample'
-    });
-});
+//     return res.json({
+//         speech: speech,
+//         displayText: speech,
+//         source: 'webhook-echo-sample'
+//     });
+// });
 
 restService.post('/slack-test', function (req, res) {
 
