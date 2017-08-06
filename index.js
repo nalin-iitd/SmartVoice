@@ -22,13 +22,11 @@ restService.get('/get-recipes', function (req, res) {
 
     var requestParams = { "_app_id": apiId, "_app_key": apiId, "q": queryString };
 
-    return result;
-
-    // return res.json({
-    //     speech: speech,
-    //     displayText: speech,
-    //     source: 'webhook-echo-sample'
-    // });
+    return res.json({
+        speech: speech,
+        displayText: speech,
+        source: 'webhook-echo-sample'
+    });
 });
 
 restService.post('/slack-test', function (req, res) {
